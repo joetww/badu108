@@ -1,1 +1,26 @@
-Hello World
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dropdown Menus</title>
+</head>
+
+<body>
+
+<select id="menu1" onchange="window.location.href=this.value">
+  <option value="https://joetww.github.io/badu108/converString.html" selected>Page 1</option>
+  <option value="https://joetww.github.io/badu108/autoOpstoolKeepAlive.html">Page 2</option>
+</select>
+
+
+
+<script>
+document.getElementById("menu1").addEventListener("change", function(){
+  window.location.href = this.value;
+}); 
+
+
+</script>
+
+</body>
+</html>
