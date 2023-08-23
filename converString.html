@@ -5813,7 +5813,7 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
     <button class="btn btn-primary mb-3" id="getNameBtn">Get Name</button>
     <div id="copyMessage"></div>
   </div>
-  <div>
+ <div class="form-group">
     <form id="urlForm">
   <label for="urlInput">輸入 URL：</label>
   <input type="url" id="urlInput" required>
@@ -5864,6 +5864,39 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
         // 顯示提示已複製的訊息
         showCopiedMessage();
       });
+
+      document.getElementById('urlForm').addEventListener('submit', function(event) {
+  event.preventDefault();
+  
+  const urlInput = document.getElementById('urlInput');
+  const url = urlInput.value;
+  
+  // 檢查是否為 HTTPS
+  if (!url.startsWith('https://')) {
+    document.getElementById('result').textContent = '請輸入 HTTPS URL';
+    return;
+  }
+  
+  // 附加不同的字串並進行驗證
+  const paths = ['/t.png', '/cc.png', 'ok.png'];
+  const resultElement = document.getElementById('result');
+  
+  paths.forEach(path => {
+    const combinedUrl = url + path;
+    
+    fetch(combinedUrl)
+      .then(response => {
+        if (response.status === 200) {
+          resultElement.innerHTML += `<p>${combinedUrl} 成功：HTTP 狀態碼為 200</p>`;
+        } else {
+          resultElement.innerHTML += `<p>${combinedUrl} 失敗：HTTP 狀態碼為 ${response.status}</p>`;
+        }
+      })
+      .catch(error => {
+        resultElement.innerHTML += `<p>${combinedUrl} 錯誤：${error}</p>`;
+      });
+  });
+});
 
       function getNamefetchAndParseData() {
         return fetch("https://www.behindthename.com/random/random.php?gender=f&number=1&sets=1&surname=&usage_myth=1")
