@@ -5888,13 +5888,13 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
     fetch(combinedUrl)
       .then(response => {
         if (response.status === 200) {
-          resultElement.innerHTML += `<p>${combinedUrl} 成功：HTTP 狀態碼為 200</p>`;
+          resultElement.innerHTML += `${combinedUrl} 成功：HTTP 狀態碼為 200\n`;
         } else {
-          resultElement.innerHTML += `<p>${combinedUrl} 失敗：HTTP 狀態碼為 ${response.status}</p>`;
+          resultElement.innerHTML += `${combinedUrl} 失敗：HTTP 狀態碼為 ${response.status}\n`;
         }
       })
       .catch(error => {
-        resultElement.innerHTML += `<p>${combinedUrl} 錯誤：${error}</p>`;
+        resultElement.innerHTML += `${combinedUrl} 錯誤：${error}\n`;
       });
   });
 });
