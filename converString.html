@@ -5947,7 +5947,7 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
         var input = $(this).val();
         var output = input.replace(/\s+/g, ' ').trim();
         $('#singleLineOutput').text(output);
-        $('#uppercaseOutput').text($('#singleLineOutput').text().toUpperCase().replace(/[，、,|\!\; \t]/g, ',').split(',').sort().join(','));
+        $('#uppercaseOutput').text($('#singleLineOutput').text().toUpperCase().replace(/[，、,|\!\; \t]+/g, ',').split(',').sort().join(','));
       });
     });
 
