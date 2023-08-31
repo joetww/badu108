@@ -5888,7 +5888,9 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
     fetch(combinedUrl)
       .then(response => {
         if (response.status === 200) {
-          resultElement.innerHTML += `${combinedUrl} 成功：HTTP 狀態碼為 200\n`;
+          resultElement.innerHTML += `${combinedUrl} 成功：HTTP 狀態碼為 ${response.status}\n`;
+          resultElement.innerHTML += `${response.headers}\n`;
+
         } else {
           resultElement.innerHTML += `${combinedUrl} 失敗：HTTP 狀態碼為 ${response.status}\n`;
         }
