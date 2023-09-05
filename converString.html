@@ -5865,7 +5865,17 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
         // 顯示提示已複製的訊息
         showCopiedMessage();
       });
+const textarea = document.getElementById('result');
 
+textarea.addEventListener('input', event => {
+  textarea.rows = 1;
+  
+  const scrollHeight = textarea.scrollHeight;
+  
+  const newRows = Math.floor(scrollHeight / 16);
+  
+  textarea.rows = newRows;
+}); 
       document.getElementById('urlForm').addEventListener('submit', function(event) {
   event.preventDefault();
   
