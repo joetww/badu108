@@ -5807,242 +5807,242 @@
     <hr>
     <div class="form-group">
       <label for="Get Name">Name:</label>
-      <textarea class="form-control class-ymd" id="getName" rows="2" >使用這個功能之前 需要安裝 瀏覽器拓展 CORS Unblock
+      <textarea class="form-control class-ymd" id="getName" rows="2">使用這個功能之前 需要安裝 瀏覽器拓展 CORS Unblock
 https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloancbhjino/related</textarea>
     </div>
     <button class="btn btn-primary mb-3" id="getNameBtn">Get Name</button>
     <div id="copyMessage"></div>
     <hr>
-     <div class="form-group">
-    <form id="urlForm">
-  <label for="urlInput">輸入 URL：</label>
-  <input type="url" id="urlInput" required>
-  <button type="submit">驗證</button>
-</form>
+    <div class="form-group">
+      <form id="urlForm">
+        <label for="urlInput">輸入 URL：</label>
+        <input type="url" id="urlInput" required>
+        <button type="submit">驗證</button>
+      </form>
 
-<textarea class="form-control class-ymd" id="result" row="8"> </textarea>
-  </div>
+      <textarea class="form-control class-ymd" id="result" row="8"> </textarea>
+    </div>
 
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $("#getNameBtn").click(function () {
-        getNamefetchAndParseData()
-          .then(content => {
-            $("#getName").text(content);
-            copyToClipboard(content);
-            showCopiedMessage();
-            console.log(content);
-          })
-          .catch(error => {
-            $("#getName").text("發生錯誤: " + error);
-            console.log("發生錯誤:", error);
-          });
-      });
-      // 當 id="singleLineOutput" 的元素被點擊時
-      $("#singleLineOutput").click(function () {
-        // 將該元素的內容複製到剪貼簿
-        var output = $(this).text();
-        copyToClipboard(output);
-        // 顯示提示已複製的訊息
-        showCopiedMessage();
-      });
-      $("#uppercaseOutput").click(function () {
-        // 將該元素的內容複製到剪貼簿
-        var output = $(this).text();
-        copyToClipboard(output);
-        // 顯示提示已複製的訊息
-        showCopiedMessage();
-      });
-      $('#cleanBtn').click(function () {
-        document.querySelector('#multiLineInput').value = '';
-      });
-
-      // 當 id="ymd" 的元素被點擊時
-      $("#ymd").click(function () {
-        // 將該元素的內容複製到剪貼簿
-        var output = $(this).text();
-        copyToClipboard(output);
-        // 顯示提示已複製的訊息
-        showCopiedMessage();
-      });
-const textarea = document.getElementById('result');
-
-textarea.addEventListener('input', event => {
-  textarea.rows = 1;
-  
-  const scrollHeight = textarea.scrollHeight;
-  
-  const newRows = Math.floor(scrollHeight / 16);
-  
-  textarea.rows = newRows;
-}); 
-      document.getElementById('urlForm').addEventListener('submit', function(event) {
-  event.preventDefault();
-  
-  const urlInput = document.getElementById('urlInput');
-  const url = urlInput.value;
-  // 如果沒有指定 protocol,默認使用 https 
-if (!url.startsWith('http://') && !url.startsWith('https://')) {
-  url = 'https://' + url;
-  urlInput.value = url;
-}
-  // 檢查是否為 HTTPS
-//  if (!url.startsWith('https://')) {
-//    document.getElementById('result').textContent = '請輸入 HTTPS URL';
-//    return;
-//  }
-  
-  // 附加不同的字串並進行驗證
-  const paths = ['/t.png', '/cc.png', '/ok.png', '/cloudServer.jpg'];
-  const resultElement = document.getElementById('result');
-  resultElement.innerHTML = '';
-  paths.forEach(path => {
-    const combinedUrl = url + path;
-    
-    fetch(combinedUrl)
-      .then(response => {
-        if (response.status === 200) {
-          resultElement.innerHTML += `${combinedUrl} 成功：HTTP 狀態碼為 ${response.status}\n`;
-          //resultElement.innerHTML += `${response.headers.entries()}\n`;
-
-        } else {
-          resultElement.innerHTML += `${combinedUrl} 失敗：HTTP 狀態碼為 ${response.status}\n`;
-        }
-      })
-      .catch(error => {
-        resultElement.innerHTML += `${combinedUrl} 錯誤：${error}\n`;
-      });
-  });
-  const textarea = document.getElementById('result');
-
-textarea.addEventListener('input', event => {
-  textarea.rows = 1;
-  
-  const scrollHeight = textarea.scrollHeight;
-  
-  const newRows = Math.floor(scrollHeight / 16);
-  
-  textarea.rows = newRows;
-}); 
-});
-
-      function getNamefetchAndParseData() {
-        return fetch("https://www.behindthename.com/random/random.php?gender=f&number=1&sets=1&surname=&usage_myth=1")
-          .then(response => response.text())
-          .then(data => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(data, "text/html");
-
-            const randomResults = htmlDoc.querySelector(".random-results");
-            const content = randomResults.textContent.trim().toLowerCase();
-
-            // 检查解析出的文字是否在英文26个字母内
-            const regex = /^[a-z]+$/;
-            if (!regex.test(content)) {
-              // 文字不在英文26个字母内，重新获取数据
-              return fetchAndParseData();
-            }
-
-            return content;
-          });
-      }
-
-      // 複製內容到剪貼簿的函數
-      function copyToClipboard(text) {
-        var input = document.createElement("textarea");
-        document.body.appendChild(input);
-        input.value = text;
-        input.select();
-        document.execCommand("copy");
-        document.body.removeChild(input);
-      }
-
-      // 顯示已複製的訊息的函數
-      function showCopiedMessage() {
-        var message = $("<div>").text("已複製到剪貼簿！");
-        $("#copyMessage").append(message);
-        message.fadeOut(3000, function () {
-          message.remove();
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $("#getNameBtn").click(function () {
+          getNamefetchAndParseData()
+            .then(content => {
+              $("#getName").text(content);
+              copyToClipboard(content);
+              showCopiedMessage();
+              console.log(content);
+            })
+            .catch(error => {
+              $("#getName").text("發生錯誤: " + error);
+              console.log("發生錯誤:", error);
+            });
         });
-      }
-    });
-    // Function 1: Convert Multi-line String to Single-line with Space Separation
-    $(document).ready(function () {
-      document.body.style.fontFamily = "'Courier New', 'Consolas', 'Menlo', 'Monaco', 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Source Code Pro', 'Inconsolata', 'Roboto Mono', monospace";
+        // 當 id="singleLineOutput" 的元素被點擊時
+        $("#singleLineOutput").click(function () {
+          // 將該元素的內容複製到剪貼簿
+          var output = $(this).text();
+          copyToClipboard(output);
+          // 顯示提示已複製的訊息
+          showCopiedMessage();
+        });
+        $("#uppercaseOutput").click(function () {
+          // 將該元素的內容複製到剪貼簿
+          var output = $(this).text();
+          copyToClipboard(output);
+          // 顯示提示已複製的訊息
+          showCopiedMessage();
+        });
+        $('#cleanBtn').click(function () {
+          document.querySelector('#multiLineInput').value = '';
+        });
 
-      $('#multiLineInput').on('input', function () {
-        var input = $(this).val();
-        var output = input.replace(/\s+/g, ' ').trim();
-        $('#singleLineOutput').text(output);
-        $('#uppercaseOutput').text($('#singleLineOutput').text().toUpperCase().replace(/[，、,|\!\; \t]+/g, ',').split(',').sort().join(','));
+        // 當 id="ymd" 的元素被點擊時
+        $("#ymd").click(function () {
+          // 將該元素的內容複製到剪貼簿
+          var output = $(this).text();
+          copyToClipboard(output);
+          // 顯示提示已複製的訊息
+          showCopiedMessage();
+        });
+        const textarea = document.getElementById('result');
+
+        textarea.addEventListener('input', event => {
+          textarea.rows = 1;
+
+          const scrollHeight = textarea.scrollHeight;
+
+          const newRows = Math.floor(scrollHeight / 16);
+
+          textarea.rows = newRows;
+        });
+        document.getElementById('urlForm').addEventListener('submit', function (event) {
+          event.preventDefault();
+
+          const urlInput = document.getElementById('urlInput');
+          const url = urlInput.value;
+          // 如果沒有指定 protocol,默認使用 https 
+          if (!url.startsWith('http://') && !url.startsWith('https://')) {
+            url = 'https://' + url;
+            urlInput.value = url;
+          }
+          // 檢查是否為 HTTPS
+          //  if (!url.startsWith('https://')) {
+          //    document.getElementById('result').textContent = '請輸入 HTTPS URL';
+          //    return;
+          //  }
+
+          // 附加不同的字串並進行驗證
+          const paths = ['/t.png', '/cc.png', '/ok.png', '/cloudServer.jpg'];
+          const resultElement = document.getElementById('result');
+          resultElement.innerHTML = '';
+          paths.forEach(path => {
+            const combinedUrl = url + path;
+
+            fetch(combinedUrl)
+              .then(response => {
+                if (response.status === 200) {
+                  resultElement.innerHTML += `${combinedUrl} 成功：HTTP 狀態碼為 ${response.status}\n`;
+                  //resultElement.innerHTML += `${response.headers.entries()}\n`;
+
+                } else {
+                  resultElement.innerHTML += `${combinedUrl} 失敗：HTTP 狀態碼為 ${response.status}\n`;
+                }
+              })
+              .catch(error => {
+                resultElement.innerHTML += `${combinedUrl} 錯誤：${error}\n`;
+              });
+          });
+          const textarea = document.getElementById('result');
+
+          textarea.addEventListener('input', event => {
+            textarea.rows = 1;
+
+            const scrollHeight = textarea.scrollHeight;
+
+            const newRows = Math.floor(scrollHeight / 16);
+
+            textarea.rows = newRows;
+          });
+        });
+
+        function getNamefetchAndParseData() {
+          return fetch("https://www.behindthename.com/random/random.php?gender=f&number=1&sets=1&surname=&usage_myth=1")
+            .then(response => response.text())
+            .then(data => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(data, "text/html");
+
+              const randomResults = htmlDoc.querySelector(".random-results");
+              const content = randomResults.textContent.trim().toLowerCase();
+
+              // 检查解析出的文字是否在英文26个字母内
+              const regex = /^[a-z]+$/;
+              if (!regex.test(content)) {
+                // 文字不在英文26个字母内，重新获取数据
+                return fetchAndParseData();
+              }
+
+              return content;
+            });
+        }
+
+        // 複製內容到剪貼簿的函數
+        function copyToClipboard(text) {
+          var input = document.createElement("textarea");
+          document.body.appendChild(input);
+          input.value = text;
+          input.select();
+          document.execCommand("copy");
+          document.body.removeChild(input);
+        }
+
+        // 顯示已複製的訊息的函數
+        function showCopiedMessage() {
+          var message = $("<div>").text("已複製到剪貼簿！");
+          $("#copyMessage").append(message);
+          message.fadeOut(3000, function () {
+            message.remove();
+          });
+        }
       });
-    });
+      // Function 1: Convert Multi-line String to Single-line with Space Separation
+      $(document).ready(function () {
+        document.body.style.fontFamily = "'Courier New', 'Consolas', 'Menlo', 'Monaco', 'Lucida Console', 'Liberation Mono', 'DejaVu Sans Mono', 'Source Code Pro', 'Inconsolata', 'Roboto Mono', monospace";
 
-    // Function 2: Generate Info String with Current Time and Random Number
-    $(document).ready(function () {
-      $("label:not([id])").each(function () {
-        var randomId = "label" + Math.floor(Math.random() * 100000);
-        $(this).attr("id", randomId);
-      });
-      $('#sn').select2();
-      $('#generateBtn').click(function () {
-        var now = new Date();
-        var m = (now.getMonth() < 9) ? '0' + (now.getMonth() + 1) : '' + (now.getMonth() + 1);
-        var d = (now.getDate() < 10) ? '0' + now.getDate() : '' + now.getDate();
-        var h = (now.getHours() < 9) ? '0' + now.getHours() : '' + now.getHours();
-        var mm = (now.getMinutes() < 10) ? '0' + (now.getMinutes()) : '' + (now.getMinutes());
-        var time = "" + m + d + h + mm;
-
-        var r = Math.random() + '' + Math.random();
-        r = r.replace(/\./g, '');
-
-        var info = $('#sn').val() + '-' + time + "-" + r.substring(3, 9) + "#";
-        $('#ymd').text(info);
+        $('#multiLineInput').on('input', function () {
+          var input = $(this).val();
+          var output = input.replace(/\s+/g, ' ').trim();
+          $('#singleLineOutput').text(output);
+          $('#uppercaseOutput').text($('#singleLineOutput').text().toUpperCase().replace(/[，、,|\!\; \t]+/g, ',').split(',').sort().join(','));
+        });
       });
 
-      // 将选中的值存储在本地存储中
-      $('#sn').on('select2:select', function (e) {
-        var selectedValue = e.params.data.id;
-        localStorage.setItem('selectedValue', selectedValue);
+      // Function 2: Generate Info String with Current Time and Random Number
+      $(document).ready(function () {
+        $("label:not([id])").each(function () {
+          var randomId = "label" + Math.floor(Math.random() * 100000);
+          $(this).attr("id", randomId);
+        });
+        $('#sn').select2();
+        $('#generateBtn').click(function () {
+          var now = new Date();
+          var m = (now.getMonth() < 9) ? '0' + (now.getMonth() + 1) : '' + (now.getMonth() + 1);
+          var d = (now.getDate() < 10) ? '0' + now.getDate() : '' + now.getDate();
+          var h = (now.getHours() < 9) ? '0' + now.getHours() : '' + now.getHours();
+          var mm = (now.getMinutes() < 10) ? '0' + (now.getMinutes()) : '' + (now.getMinutes());
+          var time = "" + m + d + h + mm;
+
+          var r = Math.random() + '' + Math.random();
+          r = r.replace(/\./g, '');
+
+          var info = $('#sn').val() + '-' + time + "-" + r.substring(3, 9) + "#";
+          $('#ymd').text(info);
+        });
+
+        // 将选中的值存储在本地存储中
+        $('#sn').on('select2:select', function (e) {
+          var selectedValue = e.params.data.id;
+          localStorage.setItem('selectedValue', selectedValue);
+        });
+
+        // 在加载页面时，从本地存储中获取选中的值并将其设置为下拉选项框的默认值
+        var selectedValue = localStorage.getItem('selectedValue');
+        if (selectedValue) {
+          $('#sn').val(selectedValue).trigger('change');
+        }
+        // 判断本地存储中的selectedValue键是否存在，存在则将下拉选项框设置为该值
+        if (localStorage.getItem('selectedValue')) {
+          $('#sn').val(localStorage.getItem('selectedValue')).trigger('change');
+        }
+        /*     // Refresh the info string every selected interval
+            var interval;
+            $('#refresh').change(function() {
+                clearInterval(interval);
+                var seconds = $(this).val();
+                interval = setInterval(function() {
+                    $('#generateBtn').click();
+                }, seconds * 1000);
+            }); */
+
+        // 在網頁載入時顯示遮罩和等待圖示
+        $('#loadingModal').modal({
+          backdrop: 'static',
+          keyboard: false
+        });
+
+        // 設定一個假的載入時間，這裡是 3 秒
+        setTimeout(function () {
+          // 載入完成後隱藏遮罩和等待圖示
+          $('#loadingModal').modal('hide');
+        }, 800);
+        var loadStartTime = performance.timing.navigationStart;
+        var loadEndTime = performance.timing.loadEventEnd;
+        var loadTime = loadEndTime - loadStartTime;
+        console.log("页面加载时间：" + loadTime + "毫秒");
       });
 
-      // 在加载页面时，从本地存储中获取选中的值并将其设置为下拉选项框的默认值
-      var selectedValue = localStorage.getItem('selectedValue');
-      if (selectedValue) {
-        $('#sn').val(selectedValue).trigger('change');
-      }
-      // 判断本地存储中的selectedValue键是否存在，存在则将下拉选项框设置为该值
-      if (localStorage.getItem('selectedValue')) {
-        $('#sn').val(localStorage.getItem('selectedValue')).trigger('change');
-      }
-      /*     // Refresh the info string every selected interval
-          var interval;
-          $('#refresh').change(function() {
-              clearInterval(interval);
-              var seconds = $(this).val();
-              interval = setInterval(function() {
-                  $('#generateBtn').click();
-              }, seconds * 1000);
-          }); */
-
-      // 在網頁載入時顯示遮罩和等待圖示
-      $('#loadingModal').modal({
-        backdrop: 'static',
-        keyboard: false
-      });
-
-      // 設定一個假的載入時間，這裡是 3 秒
-      setTimeout(function () {
-        // 載入完成後隱藏遮罩和等待圖示
-        $('#loadingModal').modal('hide');
-      }, 800);
-      var loadStartTime = performance.timing.navigationStart;
-      var loadEndTime = performance.timing.loadEventEnd;
-      var loadTime = loadEndTime - loadStartTime;
-      console.log("页面加载时间：" + loadTime + "毫秒");
-    });
-
-  </script>
+    </script>
 </body>
 
 </html>
