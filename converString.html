@@ -5820,7 +5820,7 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
         <button type="submit">驗證</button>
       </form>
 
-      <textarea class="form-control class-ymd" id="result" row="8"> </textarea>
+      <textarea class="form-control class-ymd" id="result" row="5"> </textarea>
     </div>
 
     <script type="text/javascript">
@@ -5865,17 +5865,7 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
           // 顯示提示已複製的訊息
           showCopiedMessage();
         });
-        const textarea = document.getElementById('result');
 
-        textarea.addEventListener('input', event => {
-          textarea.rows = 1;
-
-          const scrollHeight = textarea.scrollHeight;
-
-          const newRows = Math.floor(scrollHeight / 16);
-
-          textarea.rows = newRows;
-        });
         document.getElementById('urlForm').addEventListener('submit', function (event) {
           event.preventDefault();
 
@@ -5913,17 +5903,7 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
                 resultElement.innerHTML += `${combinedUrl} 錯誤：${error}\n`;
               });
           });
-          const textarea = document.getElementById('result');
-
-          textarea.addEventListener('input', event => {
-            textarea.rows = 1;
-
-            const scrollHeight = textarea.scrollHeight;
-
-            const newRows = Math.floor(scrollHeight / 16);
-
-            textarea.rows = newRows;
-          });
+ 
         });
 
         function getNamefetchAndParseData() {
