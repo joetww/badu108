@@ -5913,6 +5913,17 @@ if (!url.startsWith('http://') && !url.startsWith('https://')) {
         resultElement.innerHTML += `${combinedUrl} 錯誤：${error}\n`;
       });
   });
+  const textarea = document.getElementById('result');
+
+textarea.addEventListener('input', event => {
+  textarea.rows = 1;
+  
+  const scrollHeight = textarea.scrollHeight;
+  
+  const newRows = Math.floor(scrollHeight / 16);
+  
+  textarea.rows = newRows;
+}); 
 });
 
       function getNamefetchAndParseData() {
