@@ -5869,8 +5869,8 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
         document.getElementById('urlForm').addEventListener('submit', function (event) {
           event.preventDefault();
 
-          const urlInput = document.getElementById('urlInput');
-          const url = urlInput.value;
+          var urlInput = document.getElementById('urlInput');
+          var url = urlInput.value;
           // 如果沒有指定 protocol,默認使用 https 
           if (!url.startsWith('http://') && !url.startsWith('https://')) {
             url = 'https://' + url;
