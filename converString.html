@@ -5811,7 +5811,7 @@
 https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloancbhjino/related</textarea>
     </div>
     <button class="btn btn-primary mb-3" id="getNameBtn">Get Name</button>
-    <div id="copyMessage"></div>
+    <!--<div id="copyMessage"></div>-->
     <hr>
     <div class="form-group">
       <label for="Get UUID">UUID:</label>
@@ -5819,7 +5819,8 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
     </textarea>
 
     </div>
-    <button class="btn btn-primary mb-3" id="getUUIDBtn">Get UUID</button>
+    <!-- <button class="btn btn-primary mb-3" id="getUUIDBtn">Get UUID</button> -->
+    <div id="copyMessage"></div>
     <hr>
     <div class="form-group">
       <form id="urlForm">
@@ -5846,9 +5847,16 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
               console.log("發生錯誤:", error);
             });
         });
-        $("#getUUIDBtn").click(function () {
-          document.getElementById('getUUID').textContent = generateUUID();
+        $("#getUUID").click(function () {
+          document.getElementById('getUUID').value = generateUUID();
+          var output = document.getElementById('getUUID').value;
+
+          copyToClipboard(output);
+          // 顯示提示已複製的訊息
+          showCopiedMessage();
+          ;
         });
+
         // 當 id="singleLineOutput" 的元素被點擊時
         $("#singleLineOutput").click(function () {
           // 將該元素的內容複製到剪貼簿
@@ -5917,21 +5925,6 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
         });
 
 
-        function generateUUID() { // Public Domain/MIT
-          var d = new Date().getTime();//Timestamp
-          var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now() * 1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
-          return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-            var r = Math.random() * 16;//random number between 0 and 16
-            if (d > 0) {//Use timestamp until depleted
-              r = (d + r) % 16 | 0;
-              d = Math.floor(d / 16);
-            } else {//Use microseconds since page-load if supported
-              r = (d2 + r) % 16 | 0;
-              d2 = Math.floor(d2 / 16);
-            }
-            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-          });
-        }
         function getNamefetchAndParseData() {
           return fetch("https://www.behindthename.com/random/random.php?gender=f&number=1&sets=1&surname=&usage_myth=1")
             .then(response => response.text())
