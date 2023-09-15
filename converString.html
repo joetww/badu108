@@ -5814,6 +5814,14 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
     <div id="copyMessage"></div>
     <hr>
     <div class="form-group">
+      <label for="Get UUID">UUID:</label>
+      <textarea class="form-control class-ymd" id="getUUID" rows="2">
+    </textarea>
+
+    </div>
+    <button class="btn btn-primary mb-3" id="getUUIDBtn">Get UUID</button>
+    <hr>
+    <div class="form-group">
       <form id="urlForm">
         <label for="urlInput">輸入 URL：</label>
         <input type="text" id="urlInput" required>
@@ -5837,6 +5845,9 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
               $("#getName").text("發生錯誤: " + error);
               console.log("發生錯誤:", error);
             });
+        });
+        $("#getUUIDBtn").click(function () {
+          document.getElementById('getUUID').textContent = generateUUID();
         });
         // 當 id="singleLineOutput" 的元素被點擊時
         $("#singleLineOutput").click(function () {
@@ -5905,6 +5916,22 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
           });
         });
 
+
+        function generateUUID() { // Public Domain/MIT
+          var d = new Date().getTime();//Timestamp
+          var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now() * 1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
+          return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = Math.random() * 16;//random number between 0 and 16
+            if (d > 0) {//Use timestamp until depleted
+              r = (d + r) % 16 | 0;
+              d = Math.floor(d / 16);
+            } else {//Use microseconds since page-load if supported
+              r = (d2 + r) % 16 | 0;
+              d2 = Math.floor(d2 / 16);
+            }
+            return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+          });
+        }
         function getNamefetchAndParseData() {
           return fetch("https://www.behindthename.com/random/random.php?gender=f&number=1&sets=1&surname=&usage_myth=1")
             .then(response => response.text())
@@ -6020,7 +6047,21 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
         var loadTime = loadEndTime - loadStartTime;
         console.log("页面加载时间：" + loadTime + "毫秒");
       });
-
+      function generateUUID() { // Public Domain/MIT
+        var d = new Date().getTime();//Timestamp
+        var d2 = ((typeof performance !== 'undefined') && performance.now && (performance.now() * 1000)) || 0;//Time in microseconds since page-load or 0 if unsupported
+        return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+          var r = Math.random() * 16;//random number between 0 and 16
+          if (d > 0) {//Use timestamp until depleted
+            r = (d + r) % 16 | 0;
+            d = Math.floor(d / 16);
+          } else {//Use microseconds since page-load if supported
+            r = (d2 + r) % 16 | 0;
+            d2 = Math.floor(d2 / 16);
+          }
+          return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+      }
     </script>
 </body>
 
