@@ -5884,7 +5884,9 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
           // 顯示提示已複製的訊息
           showCopiedMessage();
         });
-
+        document.getElementById("urlInput").addEventListener("click", () => {
+          document.getElementById("urlInput").select();
+        });
         document.getElementById('urlForm').addEventListener('submit', function (event) {
           event.preventDefault();
 
