@@ -4,7 +4,8 @@ Agent2Conf="/etc/zabbix/zabbix_agent2.conf"
 IN=$(cat ${Agent2Conf} | grep -v '\s*#' | grep -v '^$' | grep -Pho '(Server=.*|ServerActive=.*)$' | sed 's/\(Server=\|ServerActive=\)\(\w\+\)/\2/g')
 ServerIP=$(while IFS=',' read -ra ADDR; do 
         for i in "${ADDR[@]}"; do
-                dig ${i} +short || echo $i
+                RESOLVE="$(dig ${i} +short)"
+                test -z "${RESOLVE}" && echo ${i}
         done
 done <<< "$IN")
 AddrList=$Folder/Web_PS.txt
