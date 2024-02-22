@@ -5,7 +5,7 @@ IN=$(cat ${Agent2Conf} | grep -v '\s*#' | grep -v '^$' | grep -Pho '(Server=.*|S
 ServerIP=$(while IFS=',' read -ra ADDR; do 
         for i in "${ADDR[@]}"; do
                 RESOLVE="$(dig ${i} +short)"
-                test -z "${RESOLVE}" && echo ${i}
+                test -z "${RESOLVE}" && echo ${i} || echo ${RESOLVE}
         done
 done <<< "$IN")
 AddrList=$Folder/Web_PS.txt
