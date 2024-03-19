@@ -5832,7 +5832,65 @@ https://chrome.google.com/webstore/detail/cors-unblock/lfhmikememgdcahcdlaciloan
       <textarea class="form-control class-ymd" id="result" row="6"> </textarea>
     </div>
 
+<hr>
+    <label for="Get Name">WebSocket 檢查:</label>
+    <textarea id="urls" rows="10" cols="50" placeholder="wss://example.com
+wss://other-example.com"></textarea>
+    <br>
+    <button onclick="checkWebSocket()">檢查 WebSocket</button>
+    <div id="results"></div>
+    
     <script type="text/javascript">
+
+              function getCurrentTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            return `${hours}:${minutes}:${seconds}`;
+        }
+
+        function saveUrlsToLocalStorage(urls) {
+            localStorage.setItem('websocket_urls', urls.join('\n'));
+        }
+
+        function loadUrlsFromLocalStorage() {
+            const urls = localStorage.getItem('websocket_urls');
+            if (urls) {
+                document.getElementById("urls").value = urls;
+            }
+        }
+
+        loadUrlsFromLocalStorage();
+
+        function checkWebSocket() {
+            const urlsInput = document.getElementById("urls").value;
+            const urls = urlsInput.split("\n").map(url => url.trim());
+
+            const resultsDiv = document.getElementById("results");
+            resultsDiv.innerHTML = ""; // 清空先前的結果
+
+            urls.forEach(url => {
+                const socket = new WebSocket(url);
+
+                const resultPara = document.createElement("p");
+                resultsDiv.appendChild(resultPara);
+
+                const timestamp = getCurrentTime();
+
+                socket.onopen = function(event) {
+                    resultPara.innerText = `[${timestamp}] ${url}：WebSocket 連線成功！`;
+                    socket.close(); // 連線成功後關閉 WebSocket
+                };
+
+                socket.onerror = function(error) {
+                    resultPara.innerText = `[${timestamp}] ${url}：無法建立 WebSocket 連線。`;
+                };
+            });
+
+            // 將目前的 URL 儲存到本地存儲中
+            saveUrlsToLocalStorage(urls);
+        }
       $(document).ready(function () {
         $("#getNameBtn").click(function () {
           getNamefetchAndParseData()
